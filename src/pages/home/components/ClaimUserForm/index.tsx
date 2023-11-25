@@ -6,7 +6,7 @@ export function ClaimUsernameForm() {
   return (
     <div>
       <Form as="form">
-        <TextInput  size="sm" prefix="ignite.com/"  placeholder="Seu usuário" />
+        <TextInput  size="sm" prefix="ignite.com/" placeholder="Seu usuário" />
         <Button size="sm" type="submit">
           Reservar usuário
           <ArrowRight />
