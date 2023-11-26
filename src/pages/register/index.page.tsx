@@ -52,15 +52,16 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
-  }
-  catch (err){
-    if (err instanceof AxiosError && err?.response?.data?.message) {
-      alert(err.response.data.message)
-      return
+      await router.push('/register/connect-calendar')
     }
-    console.error(err)
+    catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message)
+        return
+      }
+      console.error(err)
+    }
   }
-}
 
   return (
     <Container>
@@ -79,7 +80,7 @@ export default function Register() {
           <Text size="sm">Nome de usuário</Text>
           <TextInput prefix="ignite.com/" placeholder="seu-usuario" {...register('username')} />
           {
-            errors.username && 
+            errors.username &&
             (<FormError size="sm">{errors.username.message}</FormError>)
           }
         </label>
@@ -95,6 +96,6 @@ export default function Register() {
         </Button>
 
       </Form>
-      </Container>
+    </Container>
   )
 }
