@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Form, FormAnnotation } from './styles'
+import { useRouter } from "next/router";
 
 const ClaimUsernameFormSchema = z.object({
   username: z
@@ -19,16 +20,25 @@ const ClaimUsernameFormSchema = z.object({
 type ClaimUsernameFormData = z.infer<typeof ClaimUsernameFormSchema >;
 
 export function ClaimUsernameForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<ClaimUsernameFormData>({
-    resolver: zodResolver(ClaimUsernameFormSchema ),
-    defaultValues: {
-      username: '',
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors, isSubmitting } } = useForm<ClaimUsernameFormData>({
+      resolver: zodResolver(ClaimUsernameFormSchema ),
+      defaultValues: {
+        username: '',
+      }
     }
-  })
+  )
+
+  const router = useRouter()
 
   async function handleClaimUsername(data: ClaimUsernameFormData) {
-    console.log(data)
+    const { username } = data;
+
+    await router.push(`/register?username=${username}`)    
   }
+
   return (
     <>
       <Form as="form" onSubmit={handleSubmit(handleClaimUsername)}>
@@ -38,7 +48,7 @@ export function ClaimUsernameForm() {
           placeholder="Seu usuário" 
           {...register('username')}
         />
-        <Button size="sm" type="submit">
+        <Button size="sm" type="submit" disabled={isSubmitting}>
           Reservar usuário
           <ArrowRight />
         </Button>
