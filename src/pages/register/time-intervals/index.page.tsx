@@ -87,7 +87,7 @@ export default function TimeIntervals() {
     },
   });
 
-  // const router = useRouter();
+  const router = useRouter();
 
   const weekDays = getWeekDays();
 
